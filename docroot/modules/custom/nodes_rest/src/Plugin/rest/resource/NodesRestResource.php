@@ -23,7 +23,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *   }
  * )
  */
-class NodesRestResource extends ResourceBase {
+class NodesRestResource extends ResourceBase
+{
 
   /**
    * The entity manager.
@@ -60,7 +61,8 @@ class NodesRestResource extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition)
+  {
     return new static(
       $configuration,
       $plugin_id,
@@ -75,7 +77,8 @@ class NodesRestResource extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public function get() {
+  public function get()
+  {
 
     // Get the current request
     $request = $this->requestStack->getCurrentRequest();
@@ -108,8 +111,8 @@ class NodesRestResource extends ResourceBase {
 
       // Initialize node output based on the type
       $node_data = [
-          'id' => $node->id(),
-          'type' => $type,
+        'id' => $node->id(),
+        'type' => $type,
       ];
 
       // Customize output fields based on the content type and only getting necessary data
@@ -120,17 +123,17 @@ class NodesRestResource extends ResourceBase {
           $node_data['author'] = $node->get('field_author')->value;
           $node_data['content'] = $node->get('field_content')->value;
           break;
-          
-          case 'event':
-            $node_data['title'] = $node->get('title')->value;
-            $node_data['event_date'] = $node->get('field_event_date')->value;
-            $node_data['location'] = $node->get('field_location')->value;
-            break;
+
+        case 'event':
+          $node_data['title'] = $node->get('title')->value;
+          $node_data['event_date'] = $node->get('field_event_date')->value;
+          $node_data['location'] = $node->get('field_location')->value;
+          break;
 
         default:
-            // Handle other types or default case if needed
-            $node_data['title'] = $node->getTitle(); // Fallback to node title]
-            break;
+          // Handle other types or default case if needed
+          $node_data['title'] = $node->getTitle(); // Fallback to node title]
+          break;
       }
 
       $output[] = $node_data;
@@ -143,5 +146,4 @@ class NodesRestResource extends ResourceBase {
 
     return $response;
   }
-
 }
