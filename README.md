@@ -1,5 +1,8 @@
 # Drupal project
 
+Credentials:
+username: `uncinc`
+password: `letmein123456`
 # Issues (thoughts and explanations)
 - downgrade `php8` to `php7`
 - downgrade `composer` v2 to v1
