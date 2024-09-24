@@ -1,80 +1,33 @@
-# Unc Inc Rest Assessment - Drupal
+# Drupal project
 
-This package contains the assessment for a Drupal project
+# Issues (thoughts and explanations)
+- downgrade `php8` to `php7`
+- downgrade `composer` v2 to v1
 
-## Requirements
+- **`composer install` & `composer update` give errors**
 
-- Composer 1.x
-- PHP 7.2.5+
-- SQLite 3.8.8+
-- PHP Code Sniffer
-- SQLitebrowser (or similar)
-- Git (preferably command line)
-- Your editor of choice
+`Updating dependencies (including require-dev)`
+`PHP Fatal error:  Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///usr/local/bin/composer/src/Composer/DependencyResolver/RuleSetGenerator.php on line 129`
 
-## Installation
+`Fatal error: Allowed memory size of 1610612736 bytes exhausted (tried to allocate 4096 bytes) in phar:///usr/local/bin/composer/src/Composer/DependencyResolver/RuleSetGenerator.php on line 129`
 
-The directory contains a working setup of Drupal with local SQLite database storage (located in sites/default/files). To setup the project do:
+`Check https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors for more info on how to handle out of memory errors.%`
 
-Install all packages:
-```
-$ composer install
-```
+tried not touching the `composer.json` but i will still have to, in order to fix the issue above…
+so i started migrating: [drupal docs](https://www.drupal.org/docs/develop/using-composer/using-drupals-composer-scaffold#s-migrating-composer-scaffold)
 
-Start a local webserver through drush:
+used: [github issue](https://github.com/cweagans/composer-patches/issues/423#issuecomment-1301026697)
 
-```
-$ vendor/drush/drush/drush rs 8000
-```
+stopped with the migration because it gave errors on the patches and the server would not start. So then I realised that the packages in `composer.json` should work even if it is outdated. the first time I deleted the `composer.lock` which probably also caused the error above ;)
 
-As given as output by the above command you can now view the site by going to http://127.0.0.1:8000 in your browser.
+went back to the initial `composer.json` and copied & pasted back the original `composer.lock` file, then ran `composer install` directly without updating packages.
 
+**now it successfully installed all packages and runs the server**
 
-## Usage
+- **inside the localhost cms created account**
+wouldnt let me update the default email so -> threw the database away and tried again with a new database. 
+now it lets me change the email so i can finally save my account with the `administrator` role. smh
 
-To use any drush command just use the vendor command from with the drupal directory while the local webserver is running.
-
-e.g to login into Drupal an easy way is to use the one-time login link
-```
-$ vendor/drush/drush/drush uli
-```
-Paste the part after default behind your URL in your browser, e.g http://127.0.0.1:8000/user/reset/1/1610534014/pofD2p84yE8TASyo7uoAisSjvpJXXoVUSiMsozNTI08/login (note this login only works one time)
-
-We already created an API endpoint on the URL 127.0.0.1:8000/nodes/list
-
-You can confirm that the API endpoint is working, run the following command(s):
-
-List all TODOs:
-```
-curl --location --request GET 'http://127.0.0.1:8000/nodes/list' --header 'Accept: application/json'
-```
-The output should be [TODO]
-
-
-
-## Assignment
-
-Edit the existing endpoint so it returns nodes of all types including paginating (and optional type filter).
-Currently, this install contains no nodes and no content types. It is up to you to create them and give them fields (minimum of 3 with one being a long text)
-
-## Rules
-
-There is a small set of rules we would like you to adhere to:
-
-- The project needs to be versioned using git. Please make us of a local git repository to keep track of your changes (You need to start a repo by using `git init`). We try to adhere to Conventional Commits as much as we can.
-- Try to adhere to standards as much as you can. Use conventions set by the framework(s). Your code should follow the coding standards.
-- Do not write unnecessary code. Use packages or libraries where you can.
-- Do not spend too much time on this. Think practically, act as if a client is waiting for your changes.
-- If you can not finish the assignment within a reasonable amount of time, just write down your train of thoughts and steps you would like to take. We are looking more into your approach, not so much perfect code.
-
-## Hints
-
-Some hints to help you along the way:
-
-- We are looking for a rest endpoint which might be used in a headless setup, so think what would be ideal to get returned. (flexibility, server load, payload etc)
-- We are looking more for your thoughts so take us through your thought process
-- The assignment should not take more than about a couple of hours
-
-## Submission
-
-Create an archive of the full project, including the `.git` folder and database and either email it or transfer it using e.g. WeTransfer or ToffeeShare.
+the cms wouldn't even show the “Add field” button or the “Add type” button after adding the first type and a single field. smh x2
+I came across this: [forum post](https://www.drupal.org/forum/support/post-installation/2024-07-24/add-field-button-missing)
+so i changed theme and that solved the problem.
