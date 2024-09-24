@@ -30,5 +30,6 @@
 	now it lets me change the email so i can finally save my account with the `administrator` role. smh
 
 	the cms wouldn't even show the “Add field” button or the “Add type” button after adding the first type and a single field. smh x2
+	
 	I came across this: [forum post](https://www.drupal.org/forum/support/post-installation/2024-07-24/add-field-button-missing)
 	so i changed theme and that solved the problem.
