@@ -1,0 +1,77 @@
+# Ignore binaries.
+/bin
+
+# Ignore non-custom parts of Drupal.
+/docroot/core
+/docroot/libraries
+/docroot/modules/contrib
+/docroot/profiles/contrib
+/docroot/themes/contrib
+/docroot/sites/default/files
+/docroot/.csslintrc
+/docroot/.editorconfig
+/docroot/.eslintignore
+/docroot/.eslintrc.json
+/docroot/.gitattributes
+/docroot/.ht.router.php
+/docroot/autoload.php
+/docroot/index.php
+/docroot/sites/*
+!/docroot/sites/default/uncinc.settings.php
+/docroot/update.php
+/docroot/web.config
+
+
+# Ignore Composer-managed dependencies.
+vendor/
+node_modules/
+bower_components/
+
+# Vim
+*.swp
+*.swo
+
+# CSS
+/docroot/themes/maatjesgezocht_theme/css/style.css
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Backup content
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.htpasswd
+docroot/sites/default/settings.php
+
+certs/
+drushsh/
+stats/
+

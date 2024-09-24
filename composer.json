@@ -1,0 +1,164 @@
+{
+    "name": "uncinc/lightning-project",
+    "type": "project",
+    "description": "Project template for Drupal 8 sites built with the Lightning distribution.",
+    "require": {
+        "drupal/core": "~8.8.0",
+        "acquia/lightning": "^4.1",
+        "cweagans/composer-patches": "^1.6.0",
+        "drupal-composer/drupal-scaffold": "^2.0.0",
+        "drupal/console": "~1.0",
+        "symfony/debug": "3.4.8",
+        "uncinc/uncinc_profile": "^1.0",
+        "zaporylie/composer-drupal-optimizations": "^1.0",
+        "uncinc/gdpr-dump": "~1.0"
+    },
+    "require-dev": {
+        "drush/drush": "^10.0",
+        "drupal/coder": "~8.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
+    },
+    "config": {
+        "process-timeout": 0
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": false,
+        "enable-patching": true,
+        "drupal-scaffold": {
+          "excludes": [
+            "robots.txt",
+            ".htaccess"
+           ]
+        },
+        "installer-paths": {
+            "docroot/core": [
+                "type:drupal-core"
+            ],
+            "docroot/libraries/slick": [
+                "bower-asset/slick-carousel"
+            ],
+            "docroot/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "docroot/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "docroot/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "docroot/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/contrib/{$name}": [
+                "type:drupal-drush"
+            ]
+        },
+        "installer-types": [
+            "bower-asset",
+            "npm-asset"
+        ],
+        "patches": {
+            "drupal/votingapi_widgets": {
+                "Settings not passed properly": "local_patches/voting_widget_settings.patch"
+            },
+            "drupal/core": {
+                "Remove Html::resetSeenIds() call during form processing": "https://www.drupal.org/files/issues/1831560-51.patch",
+                "Views exposed form double html ids": "https://www.drupal.org/files/issues/Views-8.3.x-exposed_form_double_ids_fix-2894747-5.patch",
+                "UserPasswordForm validation results in exception when 'name' value is not set": "https://www.drupal.org/files/issues/2019-12-09/2973426-16.patch",
+                "Default media stopped to render due to recursion protection being to protective": "https://www.drupal.org/files/issues/2018-03-22/increase_recursive_render_limit-2828364-15.patch"
+            },
+            "drupal/config_partial_export": {
+                "Convert Drush commands to drupal console commands": "https://www.drupal.org/files/issues/2018-04-30/convert-drush-commands-to-drupal-console-commands-2968077-1.patch",
+                "Drush 10 compatibility": "https://www.drupal.org/files/issues/2020-01-09/fix_usage_drush_get_option_function.patch"
+            },
+            "drupal/default_content": {
+                "Do not reimport existing entities": "https://www.drupal.org/files/issues/2018-06-05/default_content-dont-reimport-existing-entities-2698425-102.patch"
+            },
+            "drupal/feeds": {
+                "Media image support": "local_patches/feeds_media_image_support.patch"
+            },
+            "drupal/feeds_ex": {
+                "RuntimeException thrown without try/catch, resulting in log spam": "https://www.drupal.org/files/issues/2019-11-12/3093915-feeds_ex-exception-without-try-catch-1.patch"
+            },
+            "drupal/menu_link_attributes": {
+                "Children should also get the attributes: https://github.com/yannickoo/menu_link_attributes/issues/67": "local_patches/menu_link_attributes_children.patch"
+            },
+            "drupal/image_widget_crop": {
+                "The cropping area does not display after clientside_validation_jquery update from 1.0.0 to 1.1.0": "https://www.drupal.org/files/issues/2019-06-04/croparea-not-displayed-3051021-4.patch"
+            },
+            "drupal/context": {
+                "Cannot add a context in Drupal 8.7 with layout builder installed": "https://www.drupal.org/files/issues/2019-06-11/context-config-schema-for-lb-support-3043383-12.patch"
+            },
+            "drupal/webp": {
+                "Configuration page uses inappropriate permission": "https://www.drupal.org/files/issues/2019-04-26/webp-administration_permission-3050939-2.patch",
+                "Why is PNG support disabled?": "https://www.drupal.org/files/issues/2019-10-02/webp-png_support-2992795-20.patch"
+            },
+            "nuvoleweb/drupal-behat": {
+                "FIX: Use correct XPath selectors to match Chosen elements with multiple classes.": "https://patch-diff.githubusercontent.com/raw/nuvoleweb/drupal-behat/pull/42.patch"
+            },
+            "drupal/vote_up_down": {
+                "Throbber broken path": "local_patches/vud_throbber_broken_path.patch",
+                "CSRF anon users": "local_patches/vud_csrf_anon_users.patch"
+            },
+            "drupal/clientside_validation": {
+                "Warning: array_diff_key(): Argument #2 is not an array": "https://www.drupal.org/files/issues/2019-08-06/warning-3072737-3.patch"
+            },
+            "drupal/eu_cookie_compliance": {
+                "Incorrect JavaScript scoping still means cookies are being reset": "https://www.drupal.org/files/issues/2019-10-15/3087960-eu-cookie-compliance_incorrect-javascript-scoping-1.patch"
+            },
+            "drush/drush": {
+                "Add --db-executable as option to drush sql-dump": "https://patch-diff.githubusercontent.com/raw/drush-ops/drush/pull/4454.patch"
+            }
+        }
+    },
+    "repositories": {
+        "uncinc": {
+            "type": "composer",
+            "url": "https://kantoor.uncinc.nl/composer"
+        },
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        "assets": {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        "dev": {
+            "type": "github",
+            "url": "https://github.com/acquia/lightning-dev",
+            "no-api": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-install-cmd": ["DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "mkdir -p docroot/sites/default",
+            "curl -o docroot/sites/default/settings.uncinc.php https://gitlab.uncinc.nl/pub/lightning-project/raw/master/docroot/sites/default/settings.uncinc.php",
+            "echo \"\\$config_directories = array(CONFIG_SYNC_DIRECTORY => '../config');\" >> docroot/sites/default/default.settings.php",
+            "echo \"if (file_exists(__DIR__ . '/settings.uncinc.php')) {\n  include __DIR__ . '/settings.uncinc.php';\n}\" >> docroot/sites/default/default.settings.php",
+            "setfacl -Rm m::rwX,g::rwX . 2>/dev/null | exit 0",
+            "setfacl -Rdm m::rwX,g::rwX . 2>/dev/null | exit 0"
+        ],
+        "post-update-cmd": ["DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "mkdir -p docroot/sites/default",
+            "curl -o docroot/sites/default/settings.uncinc.php https://gitlab.uncinc.nl/pub/lightning-project/raw/master/docroot/sites/default/settings.uncinc.php",
+            "echo \"\\$config_directories = array(CONFIG_SYNC_DIRECTORY => '../config');\" >> docroot/sites/default/default.settings.php",
+            "echo \"if (file_exists(__DIR__ . '/settings.uncinc.php')) {\n  include __DIR__ . '/settings.uncinc.php';\n}\" >> docroot/sites/default/default.settings.php"
+        ],
+        "try-again": "chmod -R 777 docroot/sites/default && rm -rf -f docroot/sites/default/files docroot/sites/default/settings.php",
+        "nuke": "chmod -R 777 docroot/sites/default && rm -r -f docroot/modules/contrib docroot/profiles vendor composer.lock",
+        "turbo-nuke": "chmod -R 777 docroot/sites/default && rm -r -f docroot/modules/contrib docroot/sites/default docroot/profiles vendor composer.lock",
+        "what-to-use": "composer suggests uncinc/uncinc_profile -v",
+        "quick-start": [
+            "COMPOSER_MEMORY_LIMIT=-1 composer install",
+            "echo \"\\$config_directories = array(CONFIG_SYNC_DIRECTORY => '../config');\" >> docroot/sites/default/default.settings.php",
+            "php -d memory_limit=-1 docroot/core/scripts/drupal quick-start -vv uncinc_profile --no-interaction"
+        ],
+        "phpcs": "phpcs --standard=Drupal,DrupalPractice --extensions=php,module,inc,install,test,profile,theme,info,txt,md --ignore=node_modules,bower_components,vendor,*.min.js,*.min.css",
+        "phpcbf": "phpcbf --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md,yml  --ignore=node_modules,bower_components,vendor,*.min.js,*.min.css"
+    }
+}
